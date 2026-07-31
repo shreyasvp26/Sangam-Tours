@@ -1,0 +1,179 @@
+@import "tailwindcss" source("..");
+@import "./tokens.css";
+
+/*
+  Explicit sources (relative to this file) so utility generation stays stable
+  under Next.js App Router + Tailwind v4 automatic detection.
+*/
+@source "../app";
+@source "../components";
+@source "../lib";
+@source "../hooks";
+@source "../config";
+
+/*
+  Map Document 05 tokens into Tailwind v4 theme utilities.
+  Prefer semantic token names over inventing a parallel palette.
+*/
+@theme inline {
+  --color-navy: var(--sangam-navy);
+  --color-royal: var(--sangam-royal);
+  --color-accent: var(--sangam-accent);
+  --color-white: var(--sangam-white);
+
+  --color-neutral-100: var(--sangam-neutral-100);
+  --color-neutral-200: var(--sangam-neutral-200);
+  --color-neutral-300: var(--sangam-neutral-300);
+  --color-neutral-500: var(--sangam-neutral-500);
+  --color-neutral-700: var(--sangam-neutral-700);
+  --color-neutral-900: var(--sangam-neutral-900);
+
+  --color-success: var(--sangam-success);
+  --color-warning: var(--sangam-warning);
+  --color-error: var(--sangam-error);
+  --color-info: var(--sangam-info);
+
+  --color-background: var(--sangam-background);
+  --color-section: var(--sangam-section);
+  --color-section-tint: var(--sangam-section-tint);
+  --color-surface: var(--sangam-surface);
+
+  --color-foreground: var(--sangam-text-primary);
+  --color-copy: var(--sangam-text-body);
+  --color-muted: var(--sangam-text-secondary);
+  --color-on-dark: var(--sangam-text-on-dark);
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-logo: var(--font-bebas-neue), ui-sans-serif, system-ui, sans-serif;
+
+  --text-display: var(--sangam-text-display);
+  --text-display--line-height: var(--sangam-text-display-lh);
+  --text-h2: var(--sangam-text-h2);
+  --text-h2--line-height: var(--sangam-text-h2-lh);
+  --text-h3: var(--sangam-text-h3);
+  --text-h3--line-height: var(--sangam-text-h3-lh);
+  --text-h4: var(--sangam-text-h4);
+  --text-h4--line-height: var(--sangam-text-h4-lh);
+  --text-body-lg: var(--sangam-text-body-lg);
+  --text-body-lg--line-height: var(--sangam-text-body-lg-lh);
+  --text-body: var(--sangam-text-body);
+  --text-body--line-height: var(--sangam-text-body-lh);
+  --text-caption: var(--sangam-text-caption);
+  --text-caption--line-height: var(--sangam-text-caption-lh);
+
+  --radius-sm: var(--sangam-radius-sm);
+  --radius-lg: var(--sangam-radius-lg);
+
+  --shadow-card: var(--sangam-shadow-card);
+
+  --spacing-touch: var(--sangam-touch-min);
+  --spacing-section: var(--sangam-section-y);
+  --spacing-section-gap: var(--sangam-section-gap);
+  --spacing-grid: var(--sangam-grid-gap);
+  --spacing-container: var(--sangam-container-pad);
+
+  --max-width-prose: var(--sangam-prose-width);
+  --max-width-container: var(--sangam-container-max);
+
+  --ease-standard: var(--sangam-ease-standard);
+  --animate-duration-fast: var(--sangam-duration-fast);
+  --animate-duration-base: var(--sangam-duration-base);
+  --animate-duration-slow: var(--sangam-duration-slow);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--sangam-background);
+    color: var(--sangam-text-body);
+    font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+    font-size: var(--sangam-text-body);
+    font-weight: 400;
+    line-height: var(--sangam-text-body-lh);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--sangam-text-primary);
+    font-weight: 700;
+    letter-spacing: normal;
+  }
+
+  .bg-navy :is(h1, h2, h3, h4),
+  .bg-royal :is(h1, h2, h3, h4) {
+    color: var(--sangam-text-on-dark);
+  }
+
+  h1 {
+    font-size: var(--sangam-text-display);
+    line-height: var(--sangam-text-display-lh);
+  }
+
+  h2 {
+    font-size: var(--sangam-text-h2);
+    line-height: var(--sangam-text-h2-lh);
+  }
+
+  h3 {
+    font-size: var(--sangam-text-h3);
+    line-height: var(--sangam-text-h3-lh);
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: var(--sangam-text-h4);
+    line-height: var(--sangam-text-h4-lh);
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  svg {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--sangam-focus-ring);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

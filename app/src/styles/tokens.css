@@ -1,0 +1,103 @@
+/**
+ * Sangam Tours design tokens
+ * Source of truth: docs/05-design-system.md
+ * Numeric values for neutrals, type, radius, shadow, motion, and touch
+ * were approved for Phase 3.1 (Architecture Review Ambiguities A–C, Option 1).
+ */
+
+:root {
+  /* Brand colors — Document 05 §4.1 */
+  --sangam-navy: #09235c;
+  --sangam-royal: #2e3190;
+  --sangam-accent: #91c44d;
+  --sangam-white: #ffffff;
+
+  /* Neutral scale — approved Phase 3.1 values */
+  --sangam-neutral-100: #f4f6fa;
+  --sangam-neutral-200: #e2e6ef;
+  --sangam-neutral-300: #b8c0d4;
+  /* Darkened for AA contrast on section/white surfaces (Doc 05 §11 / 12 §3.4). */
+  --sangam-neutral-500: #5c667a;
+  --sangam-neutral-700: #3a4258;
+  --sangam-neutral-900: #1a1f2e;
+
+  /* Functional colors — Document 05 §4.3 */
+  --sangam-success: #2e7d32;
+  --sangam-warning: #f59e0b;
+  --sangam-error: #d32f2f;
+  --sangam-info: #0284c7;
+
+  /* Surfaces — Document 05 §4.4 */
+  --sangam-background: var(--sangam-white);
+  --sangam-section: var(--sangam-neutral-100);
+  --sangam-section-tint: #f3f3f9;
+  --sangam-surface: var(--sangam-white);
+
+  /* Text */
+  --sangam-text-primary: var(--sangam-navy);
+  --sangam-text-body: var(--sangam-neutral-700);
+  --sangam-text-secondary: var(--sangam-neutral-500);
+  --sangam-text-on-dark: var(--sangam-white);
+
+  /* Typography — mobile-first sizes (Document 05 §5 + Phase 3.1 Option B) */
+  --sangam-text-display: 2.5rem; /* 40px */
+  --sangam-text-display-lh: 1.15;
+  --sangam-text-h2: 1.75rem; /* 28px */
+  --sangam-text-h2-lh: 1.25;
+  --sangam-text-h3: 1.375rem; /* 22px */
+  --sangam-text-h3-lh: 1.3;
+  --sangam-text-h4: 1.125rem; /* 18px */
+  --sangam-text-h4-lh: 1.35;
+  --sangam-text-body-lg: 1.125rem; /* 18px */
+  --sangam-text-body-lg-lh: 1.7;
+  --sangam-text-body: 1rem; /* 16px */
+  --sangam-text-body-lh: 1.7;
+  --sangam-text-caption: 0.875rem; /* 14px */
+  --sangam-text-caption-lh: 1.5;
+
+  /* Reading width — Document 05 §5.7 */
+  --sangam-prose-width: 42rem;
+
+  /*
+   * Layout — Document 05 §6 + 04 §12
+   * Numeric widths/padding/section rhythm follow the 8-point system;
+   * concrete values set in Phase 3.2 for a single shared layout language.
+   */
+  --sangam-container-max: 72rem; /* 1152px — comfortable desktop max */
+  --sangam-container-pad: 1rem; /* 16px mobile edge padding */
+  --sangam-section-y: 4rem; /* 64px between major sections (mobile) */
+  --sangam-section-gap: 1.5rem; /* 24px heading → content within a section */
+  --sangam-grid-gap: 1.5rem; /* 24px shared Package/Gallery/Testimonial grid gap */
+
+  /* Shape — Document 05 §9 + Phase 3.1 Option C */
+  --sangam-radius-sm: 0.5rem; /* 8px — buttons, inputs */
+  --sangam-radius-lg: 1rem; /* 16px — cards, images */
+
+  /* Elevation */
+  --sangam-shadow-card: 0 1px 2px rgb(9 35 92 / 0.06), 0 4px 12px rgb(9 35 92 / 0.06);
+
+  /* Touch targets — Document 05 §11 + Phase 3.1 Option C */
+  --sangam-touch-min: 2.75rem; /* 44px */
+
+  /* Focus — Document 05 §11 */
+  --sangam-focus-ring: 0 0 0 3px rgb(46 49 144 / 0.45);
+  --sangam-focus-ring-on-dark: 0 0 0 3px rgb(145 196 77 / 0.7);
+
+  /* Motion — Document 05 §10, 07 §6 + Phase 3.1 Option C */
+  --sangam-duration-fast: 150ms;
+  --sangam-duration-base: 250ms;
+  --sangam-duration-slow: 400ms;
+  --sangam-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --sangam-text-display: 3.5rem; /* 56px */
+    --sangam-text-h2: 2.25rem; /* 36px */
+    --sangam-text-h3: 1.5rem; /* 24px */
+    --sangam-text-h4: 1.25rem; /* 20px */
+
+    --sangam-container-pad: 2rem; /* 32px */
+    --sangam-section-y: 5rem; /* 80px */
+  }
+}

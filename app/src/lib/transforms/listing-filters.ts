@@ -44,6 +44,19 @@ export function formatDepartureMonthLabel(ym: string): string {
   }).format(date);
 }
 
+/** Format an ISO date (YYYY-MM-DD) for package cards — e.g. "19 Aug 2026". */
+export function formatNextDepartureLabel(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  if (!year || !month || !day) return isoDate;
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
 function tagMatchesType(tag: string | undefined, type: DestinationTypeFilter): boolean {
   if (!tag) return false;
   const normalized = tag.trim().toLowerCase();

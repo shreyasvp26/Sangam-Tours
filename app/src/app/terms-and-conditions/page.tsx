@@ -1,4 +1,4 @@
-import { LegalDocumentPage } from "@/app/_legal/LegalDocumentPage";
+import { TermsAndConditionsView } from "@/app/_legal/TermsAndConditionsView";
 import { legalDocumentMeta } from "@/content/legal";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -12,5 +12,5 @@ export const metadata = buildPageMetadata({
 
 /** Terms & Conditions — Document 03 §9 `/terms-and-conditions`, Document 04 §11. */
 export default function TermsAndConditionsPage() {
-  return <LegalDocumentPage documentType="terms-and-conditions" />;
+  return <TermsAndConditionsView />;
 }

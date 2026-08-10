@@ -8,6 +8,7 @@ import {
   homeValues,
 } from "@/content/home";
 import { listingPages } from "@/content/listings";
+import { homeHeroSlides } from "@/content/hero-slides";
 
 export type HomeHeroMedia = {
   src: string;
@@ -24,7 +25,8 @@ export type HomeSplitPanel = {
 
 export type HomePageData = {
   hero: typeof homeHero;
-  heroMedia: HomeHeroMedia | null;
+  /** Photos that crossfade behind the hero copy; empty means fall back to the brand gradient. */
+  heroSlides: HomeHeroMedia[];
   trust: typeof homeTrustStrip;
   values: typeof homeValues;
   sectionCopy: typeof homeSectionCopy;
@@ -59,14 +61,14 @@ export async function getHomePageData(): Promise<HomePageData> {
   const [homepageResult, packagesResult, testimonialsResult, galleryResult, faqsResult] =
     await Promise.all([
       catalog.homepage.get(),
-      catalog.packages.listPublished({ sort: "nearest-departure" }, { pageSize: 8 }),
+      catalog.packages.listPublished({ sort: "nearest-departure" }, { pageSize: 20 }),
       catalog.testimonials.listPublished({ featured: true }, { pageSize: 4 }),
       catalog.gallery.list({ featured: true }, { pageSize: 6 }),
       catalog.faqs.list(),
     ]);
 
-  const featuredPackages = packagesResult.ok ? packagesResult.data.items.slice(0, 4) : [];
-  const allPackages = packagesResult.ok ? packagesResult.data.items : [];
+  const featuredPackages = packagesResult.ok ? packagesResult.data.items : [];
+  const allPackages = featuredPackages;
 
   const domesticPkg = allPackages.find(
     (pkg) => pkg.categoryId === listingPages.domestic.categoryId,
@@ -90,7 +92,7 @@ export async function getHomePageData(): Promise<HomePageData> {
 
   return {
     hero: homeHero,
-    heroMedia,
+    heroSlides: heroMedia ? [heroMedia] : homeHeroSlides.map((slide) => ({ ...slide })),
     trust: homeTrustStrip,
     values: homeValues,
     sectionCopy: homeSectionCopy,

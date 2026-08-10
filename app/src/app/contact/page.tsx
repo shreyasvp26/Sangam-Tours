@@ -72,11 +72,6 @@ export default async function ContactPage() {
                     office.addressLines.map((line) => <p key={line}>{line}</p>)
                   )}
                 </div>
-                <p className="text-body text-muted">
-                  {office.businessHours.days}
-                  <br />
-                  {office.businessHours.time}
-                </p>
               </article>
             ))}
           </Grid>
@@ -86,17 +81,28 @@ export default async function ContactPage() {
       <Section tone="default" aria-labelledby="contact-map-heading">
         <Container className="gap-section-gap flex flex-col">
           <SectionHeading title={<span id="contact-map-heading">{data.copy.mapHeading}</span>} />
-          {data.mapUrl ? (
-            <div className="overflow-hidden rounded-lg border border-neutral-200">
-              <iframe
-                title={`${siteConfig.name} Nagpur office map`}
-                src={data.mapUrl}
-                className="aspect-[16/10] w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-            </div>
+          {data.offices.some(
+            (office) => office.addressStatus === "confirmed" && office.googleMapsUrl,
+          ) ? (
+            <Grid columns={2}>
+              {data.offices
+                .filter((office) => office.addressStatus === "confirmed" && office.googleMapsUrl)
+                .map((office) => (
+                  <div key={office.id} className="flex flex-col gap-3">
+                    <h3 className="text-h4 text-foreground font-semibold">{office.officeName}</h3>
+                    <div className="overflow-hidden rounded-lg border border-neutral-200">
+                      <iframe
+                        title={`${siteConfig.name} ${office.officeName} map`}
+                        src={office.googleMapsUrl}
+                        className="aspect-[16/10] w-full border-0"
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                ))}
+            </Grid>
           ) : (
             <EmptyState
               title={data.copy.mapPendingTitle}
@@ -128,19 +134,6 @@ export default async function ContactPage() {
               }
             />
           )}
-        </Container>
-      </Section>
-
-      <Section tone="default" spacing="compact" aria-labelledby="contact-hours-heading">
-        <Container className="flex flex-col gap-3">
-          <SectionHeading
-            title={<span id="contact-hours-heading">{data.copy.hoursHeading}</span>}
-          />
-          <p className="text-body-lg text-copy">
-            {data.businessHours.days}
-            <br />
-            {data.businessHours.time}
-          </p>
         </Container>
       </Section>
 

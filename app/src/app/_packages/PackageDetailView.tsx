@@ -25,13 +25,18 @@ import { Container, Grid, Section } from "@/components/layout";
 import { GalleryGrid, HeroImage } from "@/components/media";
 import { Breadcrumb, StickyMobileCTABar } from "@/components/navigation";
 import { siteConfig } from "@/config/site";
-import { formatPriceDisplay, withDerivedDepartureStatus } from "@/lib/transforms";
+import { withDerivedDepartureStatus } from "@/lib/transforms/departure";
+import {
+  formatNextDepartureLabel,
+} from "@/lib/transforms/listing-filters";
+import { formatPriceDisplay } from "@/lib/transforms/price";
 import { submitPackageEnquiry } from "@/services/enquiry-submit";
 import type { PackageDetailPageData } from "@/services/package-detail-page";
 
 const EnquiryForm = dynamic(
   () => import("@/components/forms/EnquiryForm").then((mod) => mod.EnquiryForm),
   {
+    ssr: false,
     loading: () => (
       <LoadingSkeleton variant="block" label="Loading enquiry form" className="min-h-64" />
     ),
@@ -380,7 +385,11 @@ export function PackageDetailView({ data }: PackageDetailViewProps) {
                   name={related.name}
                   duration={related.duration}
                   startingPrice={formatPriceDisplay(related.priceAmount, related.priceQualifiers)}
-                  nextDeparture={related.nextDepartureDate ?? "Dates on request"}
+                  nextDeparture={
+                    related.nextDepartureDate
+                      ? formatNextDepartureLabel(related.nextDepartureDate)
+                      : "Dates on request"
+                  }
                   imageSrc={related.heroMedia.mediaFile.uri}
                   imageAlt={related.heroMedia.altText}
                   tag={related.tag}

@@ -1,6 +1,10 @@
 export { cardInteractiveClass, cardPaddingClass, cardSurfaceClass } from "./card-shared";
 export { PackageCard, type PackageCardProps } from "./PackageCard";
 export {
+  FeaturedPackagesMarquee,
+  type FeaturedPackagesMarqueeProps,
+} from "./FeaturedPackagesMarquee";
+export {
   TestimonialCard,
   type TestimonialCardProps,
   type TestimonialCardVariant,

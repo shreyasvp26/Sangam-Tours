@@ -9,6 +9,7 @@ import { submitPackageEnquiry } from "@/services/enquiry-submit";
 const EnquiryForm = dynamic(
   () => import("@/components/forms/EnquiryForm").then((mod) => mod.EnquiryForm),
   {
+    ssr: false,
     loading: () => (
       <LoadingSkeleton variant="block" label="Loading enquiry form" className="min-h-64" />
     ),

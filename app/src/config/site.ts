@@ -1,7 +1,6 @@
 /**
  * Canonical company / contact facts for chrome (Header, Footer).
  * Source: Website requirements.pdf + Document 01 (Nagpur address, Since 1979).
- * Akola address pending confirmation — never fabricate (Document 01 §17 rule 12).
  */
 
 import { getAppEnv } from "@/config/env";
@@ -36,11 +35,22 @@ export const siteConfig = {
         "Nagpur – 440012",
       ],
       status: "confirmed" as const,
+      googleMapsShareUrl: "https://maps.app.goo.gl/yoQS1Jr4Lu2C7UeW6",
+      googleMapsEmbedUrl:
+        "https://maps.google.com/maps?q=21.1388562,79.0836335&z=16&output=embed",
     },
     akola: {
       name: "Akola Office",
-      addressLines: ["Address to be confirmed"],
-      status: "pending" as const,
+      addressLines: [
+        '169, "Chintamani"',
+        "Opp. T.T.N. Collage",
+        "Keshav Nagar",
+        "Akola – 444004",
+      ],
+      status: "confirmed" as const,
+      googleMapsShareUrl: "https://maps.app.goo.gl/Hsy8GH3TK4MeWDbF7",
+      googleMapsEmbedUrl:
+        "https://maps.google.com/maps?q=20.676666,77.023437&z=16&output=embed",
     },
   },
 } as const;

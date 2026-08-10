@@ -14,12 +14,6 @@ export type ContactPageData = {
   copy: typeof contactPageCopy;
   channels: ContactChannel[];
   offices: ContactOffice[];
-  /** Confirmed-office maps URL when available (Document 04 §10). */
-  mapUrl?: string;
-  businessHours: {
-    days: string;
-    time: string;
-  };
   packageOptions: DropdownOption[];
 };
 
@@ -33,6 +27,7 @@ function officesFromSiteConfig(): ContactOffice[] {
       phoneNumbers: siteConfig.phones.map((phone) => phone.label),
       email: siteConfig.email,
       businessHours: { ...siteConfig.businessHours },
+      googleMapsUrl: siteConfig.offices.nagpur.googleMapsEmbedUrl,
     },
     {
       id: "office-akola",
@@ -42,6 +37,7 @@ function officesFromSiteConfig(): ContactOffice[] {
       phoneNumbers: siteConfig.phones.map((phone) => phone.label),
       email: siteConfig.email,
       businessHours: { ...siteConfig.businessHours },
+      googleMapsUrl: siteConfig.offices.akola.googleMapsEmbedUrl,
     },
   ];
 }
@@ -62,10 +58,6 @@ export async function getContactPageData(): Promise<ContactPageData> {
     officesResult.ok && officesResult.data.length > 0
       ? officesResult.data
       : officesFromSiteConfig();
-
-  const confirmedWithMap = offices.find(
-    (office) => office.addressStatus === "confirmed" && office.googleMapsUrl,
-  );
 
   const packageOptions: DropdownOption[] = packagesResult.ok
     ? packagesResult.data.items.map((pkg) => ({ value: pkg.id, label: pkg.name }))
@@ -91,8 +83,6 @@ export async function getContactPageData(): Promise<ContactPageData> {
       },
     ],
     offices,
-    mapUrl: confirmedWithMap?.googleMapsUrl,
-    businessHours: offices[0]?.businessHours ?? { ...siteConfig.businessHours },
     packageOptions,
   };
 }

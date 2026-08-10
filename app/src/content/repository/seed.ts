@@ -1,14 +1,22 @@
 /**
- * Confirmed structural seeds only — Document 08 / siteConfig / About brand content.
- * No packages, testimonials, gallery, FAQs, legal bodies, or tour managers.
+ * Confirmed structural seeds + package catalogue from Website requirements.pdf.
+ * Testimonials, FAQs, and tour managers remain empty until supplied.
+ * Terms & Conditions are seeded from Website requirements.pdf §11.
  */
 
 import { aboutCompanyRecord } from "@/content/about";
 import { listingPages } from "@/content/listings";
+import {
+  seedPackageDepartures,
+  seedPackageDestinations,
+  seedPackageGalleryItems,
+  seedTourPackages,
+} from "@/content/repository/seed-packages";
 import type { ContentRepository } from "@/content/repository/types";
+import { termsAndConditionsMeta } from "@/content/terms-and-conditions";
 import { drawerOnlyNav, primaryNav } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
-import type { Category, ContactOffice, NavigationItem } from "@/domain";
+import type { Category, ContactOffice, LegalDocument, NavigationItem } from "@/domain";
 
 function seedCategories(): Category[] {
   return [
@@ -37,6 +45,7 @@ function seedOffices(): ContactOffice[] {
       phoneNumbers: siteConfig.phones.map((phone) => phone.label),
       email: siteConfig.email,
       businessHours: { ...siteConfig.businessHours },
+      googleMapsUrl: siteConfig.offices.nagpur.googleMapsEmbedUrl,
     },
     {
       id: "office-akola",
@@ -46,6 +55,7 @@ function seedOffices(): ContactOffice[] {
       phoneNumbers: siteConfig.phones.map((phone) => phone.label),
       email: siteConfig.email,
       businessHours: { ...siteConfig.businessHours },
+      googleMapsUrl: siteConfig.offices.akola.googleMapsEmbedUrl,
     },
   ];
 }
@@ -72,14 +82,26 @@ function seedNavigation(): NavigationItem[] {
   return [...primary, ...drawer];
 }
 
-/** Build the local repository from confirmed structural sources only. */
+function seedLegalDocuments(): LegalDocument[] {
+  return [
+    {
+      id: "legal-terms-and-conditions",
+      documentType: "terms-and-conditions",
+      title: termsAndConditionsMeta.title,
+      bodyContent: termsAndConditionsMeta.intro,
+      lastUpdatedDate: termsAndConditionsMeta.lastUpdatedDate,
+    },
+  ];
+}
+
+/** Build the local repository from confirmed structural sources + package catalogue. */
 export function buildSeedRepository(): ContentRepository {
   return {
     categories: seedCategories(),
-    destinations: [],
-    packages: [],
-    departures: [],
-    galleryItems: [],
+    destinations: seedPackageDestinations(),
+    packages: seedTourPackages(),
+    departures: seedPackageDepartures(),
+    galleryItems: seedPackageGalleryItems(),
     testimonials: [],
     faqs: [],
     tourManagers: [],
@@ -88,7 +110,7 @@ export function buildSeedRepository(): ContentRepository {
     heroBanners: [],
     homepageSections: [],
     navigationItems: seedNavigation(),
-    legalDocuments: [],
+    legalDocuments: seedLegalDocuments(),
     socialLinks: [],
   };
 }

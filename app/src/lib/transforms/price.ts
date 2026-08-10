@@ -11,10 +11,10 @@ export function formatInrAmount(amount: number): string {
   }).format(amount);
 }
 
+const DEFAULT_PRICE_QUALIFIER = "+ GST";
+
 export function formatPriceDisplay(amount: number, qualifiers?: string): string {
   const base = formatInrAmount(amount);
-  if (!qualifiers?.trim()) {
-    return base;
-  }
-  return `${base} ${qualifiers.trim()}`;
+  const suffix = qualifiers?.trim() || DEFAULT_PRICE_QUALIFIER;
+  return `${base} ${suffix}`;
 }

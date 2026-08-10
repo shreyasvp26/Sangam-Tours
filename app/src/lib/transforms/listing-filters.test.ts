@@ -41,7 +41,7 @@ describe("price formatting", () => {
 
   it("appends qualifiers when present", () => {
     expect(formatPriceDisplay(19999, "per person")).toContain("per person");
-    expect(formatPriceDisplay(19999)).not.toContain("per person");
+    expect(formatPriceDisplay(19999)).toContain("+ GST");
   });
 });
 

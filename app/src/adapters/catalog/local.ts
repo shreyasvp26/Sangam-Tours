@@ -14,18 +14,11 @@ import type {
   TestimonialListFilters,
 } from "@/api/resources";
 import type { ContentRepository } from "@/content/repository/types";
-import type { Departure, GalleryItem, PackageSummary, TourPackage } from "@/domain";
+import type { GalleryItem, PackageSummary, TourPackage } from "@/domain";
+import { getNextDepartureDate } from "@/lib/transforms/departure";
 
 function isPublished(status: string): boolean {
   return status === "published";
-}
-
-function nextDepartureDate(packageId: string, departures: Departure[]): string | undefined {
-  const upcoming = departures
-    .filter((item) => item.packageId === packageId && item.status === "upcoming")
-    .map((item) => item.startDate)
-    .sort();
-  return upcoming[0];
 }
 
 function toPackageSummary(pkg: TourPackage, repo: ContentRepository): PackageSummary | null {
@@ -33,6 +26,8 @@ function toPackageSummary(pkg: TourPackage, repo: ContentRepository): PackageSum
   if (!hero || !isPublished(hero.status)) {
     return null;
   }
+
+  const packageDepartures = repo.departures.filter((item) => item.packageId === pkg.id);
 
   return {
     id: pkg.id,
@@ -43,7 +38,7 @@ function toPackageSummary(pkg: TourPackage, repo: ContentRepository): PackageSum
     priceAmount: pkg.priceAmount,
     priceCurrency: pkg.priceCurrency,
     priceQualifiers: pkg.priceQualifiers,
-    nextDepartureDate: nextDepartureDate(pkg.id, repo.departures),
+    nextDepartureDate: getNextDepartureDate(packageDepartures),
     heroMedia: {
       id: hero.id,
       mediaFile: hero.mediaFile,

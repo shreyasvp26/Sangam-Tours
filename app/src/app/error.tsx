@@ -19,7 +19,8 @@ export default function ErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
-    logger.error("app.route_error", {
+    // console.error in a client error boundary triggers extra Next.js dev overlays.
+    logger.info("app.route_error", {
       digest: error.digest,
       name: error.name,
     });

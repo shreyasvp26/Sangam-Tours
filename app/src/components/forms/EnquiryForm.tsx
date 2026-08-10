@@ -144,6 +144,7 @@ export function EnquiryForm({
       <fieldset className="flex flex-col gap-5" disabled={readOnly}>
         <legend className="text-h4 text-foreground mb-1 font-medium">Your details</legend>
         <TextInput
+          id="enquiry-name"
           label="Name"
           autoComplete="name"
           required
@@ -152,6 +153,7 @@ export function EnquiryForm({
           {...register("name")}
         />
         <PhoneInput
+          id="enquiry-mobile"
           label="Mobile Number"
           required
           error={errors.mobileNumber?.message}
@@ -159,6 +161,7 @@ export function EnquiryForm({
           {...register("mobileNumber")}
         />
         <EmailInput
+          id="enquiry-email"
           label="Email"
           required
           error={errors.email?.message}
@@ -166,6 +169,7 @@ export function EnquiryForm({
           {...register("email")}
         />
         <TextInput
+          id="enquiry-city"
           label="City"
           autoComplete="address-level2"
           required
@@ -182,6 +186,7 @@ export function EnquiryForm({
           control={control}
           render={({ field }) => (
             <Dropdown
+              id="enquiry-package"
               label="Package Interested In"
               required
               options={packageOptions}
@@ -200,6 +205,7 @@ export function EnquiryForm({
           control={control}
           render={({ field }) => (
             <Dropdown
+              id="enquiry-travellers"
               label="Number of Travellers"
               required
               options={[...travellerOptions]}
@@ -218,6 +224,7 @@ export function EnquiryForm({
           control={control}
           render={({ field }) => (
             <DatePicker
+              id="enquiry-travel-date"
               label="Preferred Travel Date"
               required
               allowedDates={allowedDates}
@@ -236,6 +243,7 @@ export function EnquiryForm({
       <fieldset className="flex flex-col gap-5" disabled={readOnly}>
         <legend className="sr-only">Additional message</legend>
         <TextArea
+          id="enquiry-message"
           label="Message"
           error={errors.message?.message}
           disabled={readOnly}

@@ -10,8 +10,7 @@ export const contactPageCopy = {
   officesHeading: "Our offices",
   mapHeading: "Find us",
   mapPendingTitle: "Map coming soon",
-  mapPendingDescription:
-    "The Nagpur office map will appear here once the location link is confirmed.",
+  mapPendingDescription: "Office maps will appear here once location links are confirmed.",
   formHeading: "Send an enquiry",
   formDescription: "Tell us what you’re looking for and we’ll follow up with you.",
   formEmptyTitle: "Enquiry form available when tours are listed",

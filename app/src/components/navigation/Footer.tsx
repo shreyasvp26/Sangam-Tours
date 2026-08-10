@@ -9,18 +9,18 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
 
 const columnTitleClass = cn(
-  "text-caption mb-6 font-medium tracking-wide text-on-dark/70 uppercase",
+  "text-caption mb-3 font-medium tracking-wide text-on-dark/70 uppercase",
 );
 
 const navLinkClass = cn(
-  "min-h-touch text-body text-on-dark/70 ease-standard inline-flex items-center",
+  "text-body text-on-dark/70 ease-standard inline-flex items-center py-0.5 leading-snug",
   "transition-colors duration-[var(--sangam-duration-fast)]",
   "hover:text-on-dark",
   "focus-visible:shadow-[var(--sangam-focus-ring-on-dark)] focus-visible:outline-none",
 );
 
 const contactLinkClass = cn(
-  "min-h-touch ease-standard inline-flex items-center gap-3 text-on-dark",
+  "ease-standard inline-flex items-center gap-2.5 py-0.5 leading-snug text-on-dark",
   "transition-colors duration-[var(--sangam-duration-fast)] hover:text-accent",
   "focus-visible:shadow-[var(--sangam-focus-ring-on-dark)] focus-visible:outline-none",
 );
@@ -61,15 +61,15 @@ export function Footer() {
 
   return (
     <footer className="bg-navy text-on-dark">
-      <Container className="pt-16 pb-10 md:pt-20 md:pb-12">
+      <Container className="pt-8 pb-7 md:pt-10 md:pb-8">
         {/* Row 1 — Explore, Company, Legal across full width */}
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-16">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12">
           {footerLinkColumns.map((column) => (
             <nav key={column.title} aria-labelledby={`footer-${column.title.toLowerCase()}`}>
               <h2 id={`footer-${column.title.toLowerCase()}`} className={columnTitleClass}>
                 {column.title}
               </h2>
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-0.5">
                 {column.links.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className={navLinkClass}>
@@ -82,19 +82,19 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Row 2 — Reach Us; office top aligns with first phone (same content row) */}
-        <div className="mt-14 md:mt-16" aria-labelledby="footer-reach-us">
+        {/* Row 2 — Reach Us; office aligns with Legal column */}
+        <div className="mt-8 md:mt-10" aria-labelledby="footer-reach-us">
           <h2 id="footer-reach-us" className={columnTitleClass}>
             Reach Us
           </h2>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-16">
-            <ul className="flex flex-col gap-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 lg:items-start">
+            <ul className="flex flex-col gap-0.5">
               {siteConfig.phones.map((phone) => (
                 <li key={phone.href}>
                   <Link
                     href={phone.href}
-                    className={cn(contactLinkClass, "text-body-lg font-medium")}
+                    className={cn(contactLinkClass, "text-body font-medium")}
                   >
                     <ContactIcon>
                       <Phone className="size-4" strokeWidth={1.75} />
@@ -133,27 +133,19 @@ export function Footer() {
             <div className="hidden lg:block" aria-hidden="true" />
 
             <div>
-              <address className="text-body text-on-dark/65 block not-italic leading-relaxed">
-                <span className="text-on-dark/85 min-h-touch inline-flex items-center font-medium">
-                  {siteConfig.offices.nagpur.name}
-                </span>
+              <address className="text-body text-on-dark/65 block not-italic leading-snug">
+                <span className="text-on-dark/85 font-medium">{siteConfig.offices.nagpur.name}</span>
                 {siteConfig.offices.nagpur.addressLines.map((line) => (
-                  <span key={line} className="mt-1 block">
+                  <span key={line} className="block">
                     {line}
                   </span>
                 ))}
               </address>
-
-              <p className="text-body text-on-dark/65 mt-8 leading-relaxed">
-                {siteConfig.businessHours.days}
-                <br />
-                {siteConfig.businessHours.time}
-              </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between md:mt-20">
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between md:mt-10">
           <Logo href="/" variant="full" onDark compact />
           <p className="text-caption text-on-dark/65">
             © {year} {siteConfig.name}. All rights reserved.

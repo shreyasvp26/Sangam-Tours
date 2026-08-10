@@ -2,16 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { CalendarCheck, ClipboardList, MessageCircle, Users, UtensilsCrossed } from "lucide-react";
 
-import { ValueCard, PackageCard, TestimonialCard } from "@/components/cards";
+import { ValueCard, TestimonialCard } from "@/components/cards";
+import { FeaturedPackagesMarquee } from "@/components/cards/FeaturedPackagesMarquee";
 import { Accordion, Badge, SectionHeading, StatisticsBlock } from "@/components/content";
 import { CallButton, CTA_LABELS, PrimaryCTA, SecondaryCTA, WhatsAppButton } from "@/components/cta";
 import { EmptyState } from "@/components/feedback";
 import { Container, Grid, Page, Section } from "@/components/layout";
-import { GalleryGrid } from "@/components/media";
+import { GalleryGrid } from "@/components/media/GalleryGrid";
+import { HeroBackground } from "@/components/media/HeroBackground";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { buildPageMetadata } from "@/lib/seo";
-import { formatPriceDisplay } from "@/lib/transforms";
 import { getHomePageData } from "@/services/home-page";
 
 export const metadata = buildPageMetadata({
@@ -41,19 +42,8 @@ export default async function HomePage() {
     <Page aria-label="Homepage">
       {/* 3.2 Hero */}
       <Section tone="navy" spacing="none" className="relative overflow-hidden">
-        {data.heroMedia ? (
-          <div className="absolute inset-0">
-            <Image
-              src={data.heroMedia.src}
-              alt=""
-              fill
-              priority
-              quality={85}
-              sizes="100vw"
-              className="object-cover"
-            />
-            <div className="bg-navy/70 absolute inset-0" aria-hidden="true" />
-          </div>
+        {data.heroSlides.length > 0 ? (
+          <HeroBackground slides={data.heroSlides} />
         ) : (
           <div
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(46_49_144_/_0.55),transparent_55%),linear-gradient(160deg,var(--sangam-navy),var(--sangam-royal))]"
@@ -91,22 +81,7 @@ export default async function HomePage() {
             description={data.sectionCopy.featured.description}
           />
           {data.featuredPackages.length > 0 ? (
-            <div className="-mx-container gap-grid px-container flex overflow-x-auto pb-2 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 lg:grid-cols-3 xl:grid-cols-4">
-              {data.featuredPackages.map((pkg) => (
-                <div key={pkg.id} className="w-[min(85vw,20rem)] shrink-0 md:w-auto md:shrink">
-                  <PackageCard
-                    href={`/packages/${pkg.slug}`}
-                    name={pkg.name}
-                    duration={pkg.duration}
-                    startingPrice={formatPriceDisplay(pkg.priceAmount, pkg.priceQualifiers)}
-                    nextDeparture={pkg.nextDepartureDate ?? "Dates on request"}
-                    imageSrc={pkg.heroMedia.mediaFile.uri}
-                    imageAlt={pkg.heroMedia.altText}
-                    tag={pkg.tag}
-                  />
-                </div>
-              ))}
-            </div>
+            <FeaturedPackagesMarquee packages={data.featuredPackages} />
           ) : (
             <EmptyState
               title="No featured packages published yet"

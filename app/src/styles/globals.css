@@ -177,3 +177,29 @@
     }
   }
 }
+
+@keyframes featured-packages-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .animate-featured-packages-marquee {
+    animation: featured-packages-marquee 100s linear infinite;
+  }
+
+  .group:hover .animate-featured-packages-marquee,
+  .group:focus-within .animate-featured-packages-marquee {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-featured-packages-marquee {
+      animation: none !important;
+    }
+  }
+}

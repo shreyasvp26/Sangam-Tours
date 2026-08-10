@@ -16,6 +16,7 @@ export {
   collectDepartureMonths,
   createDefaultListingFilters,
   formatDepartureMonthLabel,
+  formatNextDepartureLabel,
   listingFiltersActive,
   type ListingFilterState,
 } from "./listing-filters";

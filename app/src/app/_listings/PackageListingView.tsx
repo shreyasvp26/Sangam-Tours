@@ -22,10 +22,11 @@ import {
   collectDepartureMonths,
   createDefaultListingFilters,
   formatDepartureMonthLabel,
-  formatPriceDisplay,
+  formatNextDepartureLabel,
   listingFiltersActive,
   type ListingFilterState,
-} from "@/lib/transforms";
+} from "@/lib/transforms/listing-filters";
+import { formatPriceDisplay } from "@/lib/transforms/price";
 import { siteConfig } from "@/config/site";
 import type { PackageSummary } from "@/domain";
 
@@ -200,7 +201,11 @@ export function PackageListingView({ content, packages }: PackageListingViewProp
                   name={pkg.name}
                   duration={pkg.duration}
                   startingPrice={formatPriceDisplay(pkg.priceAmount, pkg.priceQualifiers)}
-                  nextDeparture={pkg.nextDepartureDate ?? "Dates on request"}
+                  nextDeparture={
+                    pkg.nextDepartureDate
+                      ? formatNextDepartureLabel(pkg.nextDepartureDate)
+                      : "Dates on request"
+                  }
                   imageSrc={pkg.heroMedia.mediaFile.uri}
                   imageAlt={pkg.heroMedia.altText}
                   tag={pkg.tag}

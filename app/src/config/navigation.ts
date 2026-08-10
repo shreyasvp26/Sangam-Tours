@@ -52,10 +52,6 @@ export const footerLinkColumns: readonly FooterLinkColumn[] = [
   },
   {
     title: "Legal",
-    links: [
-      { label: "Terms & Conditions", href: "/terms-and-conditions" },
-      { label: "Privacy Policy", href: "/privacy-policy" },
-      { label: "Cancellation & Refund Policy", href: "/cancellation-and-refund-policy" },
-    ],
+    links: [{ label: "Terms & Conditions", href: "/terms-and-conditions" }],
   },
 ];

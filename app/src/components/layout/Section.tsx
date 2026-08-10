@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
+import { TravelStickerField } from "@/components/media/TravelStickerField";
 import { cn } from "@/lib/cn";
 
 type SectionTone = "default" | "muted" | "tint" | "navy" | "royal";
@@ -8,6 +9,12 @@ type SectionSpacing = "default" | "compact" | "none";
 type SectionOwnProps = {
   tone?: SectionTone;
   spacing?: SectionSpacing;
+  /**
+   * Travel sticker backdrop on light sections.
+   * Defaults on for default/muted/tint; off for navy/royal.
+   * Pass false to opt out (e.g. breadcrumbs, loading shells).
+   */
+  stickers?: boolean;
   className?: string;
   children: ReactNode;
 };
@@ -35,6 +42,8 @@ const spacingClass: Record<SectionSpacing, string> = {
   none: "py-0",
 };
 
+const lightTones: ReadonlySet<SectionTone> = new Set(["default", "muted", "tint"]);
+
 /**
  * Vertical page chapter with shared surface and spacing rhythm.
  * Layout primitive only — not Document 06 Section Heading.
@@ -43,15 +52,28 @@ export function Section<T extends ElementType = "section">({
   as,
   tone = "default",
   spacing = "default",
+  stickers,
   className,
   children,
   ...props
 }: SectionProps<T>) {
   const Component = (as ?? "section") as ElementType;
+  const showStickers = stickers ?? lightTones.has(tone);
 
   return (
-    <Component className={cn(toneClass[tone], spacingClass[spacing], className)} {...props}>
-      {children}
+    <Component
+      className={cn(
+        toneClass[tone],
+        spacingClass[spacing],
+        showStickers && "relative overflow-hidden",
+        className,
+      )}
+      {...props}
+    >
+      {showStickers ? (
+        <TravelStickerField density={spacing === "compact" || spacing === "none" ? "sparse" : "default"} />
+      ) : null}
+      {showStickers ? <div className="relative z-10">{children}</div> : children}
     </Component>
   );
 }

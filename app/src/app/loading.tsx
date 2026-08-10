@@ -9,7 +9,7 @@ import { Container, Section } from "@/components/layout";
 export default function Loading() {
   return (
     <div className="w-full flex-1" role="status" aria-busy="true" aria-label="Loading page content">
-      <Section tone="default">
+      <Section tone="default" stickers={false}>
         <Container>
           <LoadingSkeleton variant="package" count={6} label="Loading page content" />
         </Container>

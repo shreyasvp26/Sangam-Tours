@@ -97,7 +97,7 @@ export function PackageDetailView({ data }: PackageDetailViewProps) {
 
   return (
     <>
-      <Section tone="default" spacing="compact" aria-label="Breadcrumb">
+      <Section tone="default" spacing="compact" stickers={false} aria-label="Breadcrumb">
         <Container>
           <Breadcrumb
             items={[

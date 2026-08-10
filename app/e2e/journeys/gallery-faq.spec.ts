@@ -8,10 +8,11 @@ test.describe("Gallery & FAQ journeys", () => {
     await expect(page.getByRole("link", { name: /whatsapp us/i }).first()).toBeVisible();
   });
 
-  test("faq shows empty library state and contact CTA", async ({ page }) => {
+  test("faq lists published questions with category filters and contact CTA", async ({ page }) => {
     await page.goto("/faq");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByRole("status")).toBeVisible();
+    await expect(page.getByRole("button", { name: /how do i book a tour/i })).toBeVisible();
+    await expect(page.getByRole("group", { name: /category/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /contact/i }).first()).toBeVisible();
   });
 

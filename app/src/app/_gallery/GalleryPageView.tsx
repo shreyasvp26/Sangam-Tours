@@ -50,78 +50,76 @@ export function GalleryPageView({ data }: GalleryPageViewProps) {
 
   return (
     <>
-      {data.showFilters ? (
-        <Section tone="default" spacing="compact" aria-label="Gallery filters">
-          <Container className="flex flex-col gap-5">
-            {data.destinations.length > 1 ? (
-              <div
-                className="flex flex-col gap-3"
-                role="group"
-                aria-labelledby="gallery-destination-filter-heading"
-              >
-                <p
-                  id="gallery-destination-filter-heading"
-                  className="text-caption text-muted font-medium tracking-wide uppercase"
+      <Section tone="default" spacing="compact" aria-labelledby="gallery-photos-heading">
+        <Container className="flex flex-col gap-6 md:gap-7">
+          {data.showFilters ? (
+            <div className="flex flex-col gap-4" aria-label="Gallery filters">
+              {data.destinations.length > 1 ? (
+                <div
+                  className="flex flex-col gap-2.5"
+                  role="group"
+                  aria-labelledby="gallery-destination-filter-heading"
                 >
-                  Destination
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {data.destinations.map((option) => (
-                    <Tag
-                      key={option.id}
-                      selected={destinationId === option.id}
-                      onClick={() =>
-                        setDestinationId((prev) => (prev === option.id ? null : option.id))
-                      }
-                    >
-                      {option.label}
-                    </Tag>
-                  ))}
+                  <p
+                    id="gallery-destination-filter-heading"
+                    className="text-caption text-muted font-medium tracking-wide uppercase"
+                  >
+                    Destination
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {data.destinations.map((option) => (
+                      <Tag
+                        key={option.id}
+                        selected={destinationId === option.id}
+                        onClick={() =>
+                          setDestinationId((prev) => (prev === option.id ? null : option.id))
+                        }
+                      >
+                        {option.label}
+                      </Tag>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
 
-            {data.packages.length > 1 ? (
-              <div
-                className="flex flex-col gap-3"
-                role="group"
-                aria-labelledby="gallery-package-filter-heading"
-              >
-                <p
-                  id="gallery-package-filter-heading"
-                  className="text-caption text-muted font-medium tracking-wide uppercase"
+              {data.packages.length > 1 ? (
+                <div
+                  className="flex flex-col gap-2.5"
+                  role="group"
+                  aria-labelledby="gallery-package-filter-heading"
                 >
-                  Package
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {data.packages.map((option) => (
-                    <Tag
-                      key={option.id}
-                      selected={packageId === option.id}
-                      onClick={() =>
-                        setPackageId((prev) => (prev === option.id ? null : option.id))
-                      }
-                    >
-                      {option.label}
-                    </Tag>
-                  ))}
+                  <p
+                    id="gallery-package-filter-heading"
+                    className="text-caption text-muted font-medium tracking-wide uppercase"
+                  >
+                    Package
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {data.packages.map((option) => (
+                      <Tag
+                        key={option.id}
+                        selected={packageId === option.id}
+                        onClick={() =>
+                          setPackageId((prev) => (prev === option.id ? null : option.id))
+                        }
+                      >
+                        {option.label}
+                      </Tag>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
 
-            {filtersActive ? (
-              <TertiaryCTA type="button" onClick={clearFilters}>
-                Clear filters
-              </TertiaryCTA>
-            ) : null}
-          </Container>
-        </Section>
-      ) : null}
+              {filtersActive ? (
+                <TertiaryCTA type="button" onClick={clearFilters}>
+                  Clear filters
+                </TertiaryCTA>
+              ) : null}
+            </div>
+          ) : null}
 
-      <Section tone="default" aria-labelledby="gallery-photos-heading">
-        <Container className="gap-section-gap flex flex-col">
           {!libraryEmpty && images.length > 0 ? (
-            <>
+            <div className="flex flex-col gap-5 md:gap-6">
               <SectionHeading
                 title={<span id="gallery-photos-heading">{data.copy.imagesHeading}</span>}
               />
@@ -136,7 +134,7 @@ export function GalleryPageView({ data }: GalleryPageViewProps) {
                   tagHref: item.packageSlug ? `/packages/${item.packageSlug}` : undefined,
                 }))}
               />
-            </>
+            </div>
           ) : null}
 
           {libraryEmpty ? (

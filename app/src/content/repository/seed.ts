@@ -1,11 +1,13 @@
 /**
  * Confirmed structural seeds + package catalogue from Website requirements.pdf.
- * Testimonials, FAQs, and tour managers remain empty until supplied.
+ * FAQs are seeded from requirements, Terms §11, and documented customer concerns.
+ * Testimonials and tour managers remain empty until supplied.
  * Terms & Conditions are seeded from Website requirements.pdf §11.
  */
 
 import { aboutCompanyRecord } from "@/content/about";
 import { listingPages } from "@/content/listings";
+import { seedFaqs } from "@/content/repository/seed-faqs";
 import {
   seedPackageDepartures,
   seedPackageDestinations,
@@ -103,7 +105,7 @@ export function buildSeedRepository(): ContentRepository {
     departures: seedPackageDepartures(),
     galleryItems: seedPackageGalleryItems(),
     testimonials: [],
-    faqs: [],
+    faqs: seedFaqs(),
     tourManagers: [],
     company: aboutCompanyRecord,
     offices: seedOffices(),

@@ -37,7 +37,7 @@ export const listingPages: Record<ListingCategoryKey, ListingPageContent> = {
   },
 };
 
-/** Destination-type filter chips — Document 04 §4 / 03 §4.2. */
+/** Destination-type filter chips retained for catalogue tags / future use. */
 export const destinationTypeFilters = [
   { value: "hills", label: "Hills" },
   { value: "coast", label: "Coast" },
@@ -47,7 +47,6 @@ export const destinationTypeFilters = [
 export type DestinationTypeFilter = (typeof destinationTypeFilters)[number]["value"];
 
 export const listingSortOptions = [
-  { value: "nearest-departure", label: "Soonest departure" },
   { value: "price-asc", label: "Price: low to high" },
   { value: "price-desc", label: "Price: high to low" },
 ] as const;

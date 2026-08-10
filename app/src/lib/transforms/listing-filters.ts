@@ -1,8 +1,7 @@
 import type { PackageSummary } from "@/domain";
-import type { DestinationTypeFilter, ListingSortValue } from "@/content/listings";
+import type { ListingSortValue } from "@/content/listings";
 
 export type ListingFilterState = {
-  destinationType: DestinationTypeFilter | null;
   /** `YYYY-MM` or null for all months. */
   departureMonth: string | null;
   sort: ListingSortValue;
@@ -10,14 +9,13 @@ export type ListingFilterState = {
 
 export function createDefaultListingFilters(): ListingFilterState {
   return {
-    destinationType: null,
     departureMonth: null,
-    sort: "nearest-departure",
+    sort: "price-asc",
   };
 }
 
 export function listingFiltersActive(filters: ListingFilterState): boolean {
-  return filters.destinationType !== null || filters.departureMonth !== null;
+  return filters.departureMonth !== null;
 }
 
 /** Unique departure months (YYYY-MM) from package next dates, ascending. */
@@ -57,26 +55,11 @@ export function formatNextDepartureLabel(isoDate: string): string {
   }).format(date);
 }
 
-function tagMatchesType(tag: string | undefined, type: DestinationTypeFilter): boolean {
-  if (!tag) return false;
-  const normalized = tag.trim().toLowerCase();
-  const aliases: Record<DestinationTypeFilter, string[]> = {
-    hills: ["hills", "hill", "hill station", "mountain", "mountains"],
-    coast: ["coast", "coastal", "beach", "beaches", "konkan"],
-    pilgrimage: ["pilgrimage", "pilgrim", "temple", "spiritual"],
-  };
-  return aliases[type].some((alias) => normalized === alias || normalized.includes(alias));
-}
-
 export function applyListingFilters(
   packages: PackageSummary[],
   filters: ListingFilterState,
 ): PackageSummary[] {
   let next = [...packages];
-
-  if (filters.destinationType) {
-    next = next.filter((pkg) => tagMatchesType(pkg.tag, filters.destinationType!));
-  }
 
   if (filters.departureMonth) {
     next = next.filter((pkg) => pkg.nextDepartureDate?.slice(0, 7) === filters.departureMonth);
@@ -84,16 +67,11 @@ export function applyListingFilters(
 
   next.sort((a, b) => {
     switch (filters.sort) {
-      case "price-asc":
-        return a.priceAmount - b.priceAmount;
       case "price-desc":
         return b.priceAmount - a.priceAmount;
-      case "nearest-departure":
-      default: {
-        const aDate = a.nextDepartureDate ?? "9999-12-31";
-        const bDate = b.nextDepartureDate ?? "9999-12-31";
-        return aDate.localeCompare(bDate);
-      }
+      case "price-asc":
+      default:
+        return a.priceAmount - b.priceAmount;
     }
   });
 

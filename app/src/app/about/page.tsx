@@ -6,6 +6,7 @@ import {
   Users,
   UtensilsCrossed,
 } from "lucide-react";
+import Image from "next/image";
 
 import { FeatureCard, ValueCard } from "@/components/cards";
 import { Badge, SectionHeading, StatisticsBlock, Timeline } from "@/components/content";
@@ -45,13 +46,30 @@ export default async function AboutPage() {
 
   return (
     <Page aria-label={`About ${siteConfig.name}`}>
-      {/* Hero */}
-      <Section tone="navy" spacing="default" className="relative overflow-hidden">
+      {/* Hero — homepage-style navy→royal gradient with logo watermark */}
+      <Section tone="navy" spacing="none" className="relative overflow-hidden">
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgb(46_49_144_/_0.5),transparent_50%),linear-gradient(165deg,var(--sangam-navy),var(--sangam-royal))]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(46_49_144_/_0.55),transparent_55%),linear-gradient(160deg,var(--sangam-navy),var(--sangam-royal))]"
           aria-hidden="true"
         />
-        <Container className="relative flex flex-col gap-5 py-8 md:py-12">
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 flex w-[min(72%,28rem)] items-center justify-center md:w-[min(55%,36rem)]"
+          aria-hidden="true"
+        >
+          <Image
+            src="/brand/logo-mark-on-dark.png"
+            alt=""
+            width={640}
+            height={640}
+            className="size-full max-h-[22rem] object-contain opacity-[0.18] md:max-h-[28rem] md:opacity-[0.22]"
+            priority
+          />
+        </div>
+        <div
+          className="from-navy/75 via-navy/45 pointer-events-none absolute inset-0 bg-gradient-to-r to-transparent md:via-navy/35"
+          aria-hidden="true"
+        />
+        <Container className="relative flex min-h-[42svh] flex-col justify-center gap-5 py-14 md:min-h-[48svh] md:py-20">
           <Badge className="bg-accent/20 text-on-dark border-accent/40 w-fit border">
             {data.hero.badge}
           </Badge>

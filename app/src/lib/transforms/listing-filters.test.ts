@@ -74,21 +74,20 @@ describe("listing filters", () => {
     expect(listingFiltersActive(createDefaultListingFilters())).toBe(false);
   });
 
-  it("filters by destination type aliases", () => {
-    const filtered = applyListingFilters(packages, {
-      ...createDefaultListingFilters(),
-      destinationType: "hills",
-    });
-    expect(filtered.map((p) => p.id)).toEqual(["p1"]);
-  });
-
   it("filters by departure month and sorts by price", () => {
     const filtered = applyListingFilters(packages, {
-      destinationType: null,
       departureMonth: "2026-09",
       sort: "price-asc",
     });
     expect(filtered.map((p) => p.id)).toEqual(["p3", "p1"]);
+  });
+
+  it("sorts by price high to low", () => {
+    const filtered = applyListingFilters(packages, {
+      departureMonth: null,
+      sort: "price-desc",
+    });
+    expect(filtered.map((p) => p.id)).toEqual(["p1", "p2", "p3"]);
   });
 
   it("collects unique departure months", () => {

@@ -236,7 +236,7 @@ export default async function HomePage() {
               items={data.faqs.map((faq) => ({
                 id: faq.id,
                 title: faq.question,
-                content: <p>{faq.answer}</p>,
+                content: <p className="text-copy whitespace-pre-line">{faq.answer}</p>,
               }))}
             />
           ) : (
@@ -252,7 +252,9 @@ export default async function HomePage() {
             />
           )}
           <div>
-            <SecondaryCTA href="/faq">View All FAQs</SecondaryCTA>
+            <SecondaryCTA href="/faq" className="rounded-lg">
+              View All FAQs
+            </SecondaryCTA>
           </div>
         </Container>
       </Section>

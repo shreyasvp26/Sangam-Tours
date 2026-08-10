@@ -10,7 +10,7 @@ export const faqPageCopy = {
   categoriesLabel: "Category",
   emptyTitle: "Questions will show here",
   emptyDescription:
-    "Answers from our published FAQ set appear on this page. WhatsApp us if you need help before then.",
+    "Published answers will appear here as soon as they are available. WhatsApp us if you need help before then.",
   filterEmptyTitle: "No questions in this category",
   filterEmptyDescription: "Try another category, or WhatsApp us with your question.",
   clearFilterLabel: "Show all questions",

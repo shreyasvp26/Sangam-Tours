@@ -87,7 +87,7 @@ export function Accordion({ items, exclusive = false, className }: AccordionProp
   return (
     <div
       className={cn(
-        "flex flex-col divide-y divide-neutral-200 border-y border-neutral-200",
+        "bg-surface shadow-card divide-neutral-200/80 flex flex-col divide-y overflow-hidden rounded-lg border border-neutral-200",
         className,
       )}
     >
@@ -98,7 +98,7 @@ export function Accordion({ items, exclusive = false, className }: AccordionProp
         const isOpen = openIds.has(id);
 
         return (
-          <div key={id} className="bg-surface">
+          <div key={id} className={cn(isOpen && "bg-section-tint/40")}>
             <h3 className="m-0">
               <button
                 ref={(node) => {
@@ -106,21 +106,34 @@ export function Accordion({ items, exclusive = false, className }: AccordionProp
                 }}
                 type="button"
                 id={headerId}
-                className="text-body text-foreground ease-standard hover:bg-section-tint min-h-touch flex w-full items-center justify-between gap-3 px-1 py-3 text-left font-medium transition-colors duration-[var(--sangam-duration-fast)] focus-visible:shadow-[var(--sangam-focus-ring)] focus-visible:outline-none"
+                className={cn(
+                  "text-body text-foreground ease-standard min-h-touch flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left font-medium md:px-5",
+                  "transition-colors duration-[var(--sangam-duration-fast)]",
+                  "hover:bg-section-tint/70",
+                  "focus-visible:shadow-[var(--sangam-focus-ring)] focus-visible:outline-none",
+                )}
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => toggle(id)}
                 onKeyDown={(event) => onHeaderKeyDown(event, index)}
               >
-                <span>{item.title}</span>
-                <ChevronDown
-                  aria-hidden="true"
+                <span className="leading-snug">{item.title}</span>
+                <span
                   className={cn(
-                    "text-muted ease-standard size-5 shrink-0 transition-transform duration-[var(--sangam-duration-fast)]",
-                    isOpen && "rotate-180",
+                    "bg-section text-navy inline-flex size-8 shrink-0 items-center justify-center rounded-full",
+                    "ease-standard transition-colors duration-[var(--sangam-duration-fast)]",
+                    isOpen && "bg-navy text-on-dark",
                   )}
-                  strokeWidth={1.75}
-                />
+                  aria-hidden="true"
+                >
+                  <ChevronDown
+                    className={cn(
+                      "ease-standard size-4 transition-transform duration-[var(--sangam-duration-fast)]",
+                      isOpen && "rotate-180",
+                    )}
+                    strokeWidth={2}
+                  />
+                </span>
               </button>
             </h3>
             <div
@@ -128,7 +141,7 @@ export function Accordion({ items, exclusive = false, className }: AccordionProp
               role="region"
               aria-labelledby={headerId}
               hidden={!isOpen}
-              className={cn("text-body text-copy px-1 pb-4", !isOpen && "hidden")}
+              className={cn("text-body text-copy px-4 pb-5 md:px-5", !isOpen && "hidden")}
             >
               {item.content}
             </div>

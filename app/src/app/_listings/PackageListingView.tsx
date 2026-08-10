@@ -1,20 +1,16 @@
 "use client";
 
-import { useCallback, useId, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 
 import { PackageCard } from "@/components/cards";
-import { SectionHeading, Tag } from "@/components/content";
+import { SectionHeading } from "@/components/content";
 import { TertiaryCTA, WhatsAppButton } from "@/components/cta";
 import { Dropdown } from "@/components/forms/Dropdown";
 import { EmptyState } from "@/components/feedback";
 import { Container, Grid, Section } from "@/components/layout";
 import { Z_INDEX } from "@/constants/z-index";
-import {
-  destinationTypeFilters,
-  listingSortOptions,
-  type ListingPageContent,
-} from "@/content/listings";
+import { listingSortOptions, type ListingPageContent } from "@/content/listings";
 import { useFocusTrap, useScrollLock } from "@/hooks";
 import { cn } from "@/lib/cn";
 import {
@@ -45,7 +41,6 @@ export function PackageListingView({ content, packages }: PackageListingViewProp
   const filterTriggerRef = useRef<HTMLButtonElement>(null);
   const sheetCloseRef = useRef<HTMLButtonElement>(null);
   const sheetRootRef = useRef<HTMLDivElement>(null);
-  const destinationTypeHeadingId = useId();
   const closeSheet = useCallback(() => setSheetOpen(false), []);
 
   useScrollLock(sheetOpen);
@@ -71,32 +66,7 @@ export function PackageListingView({ content, packages }: PackageListingViewProp
   }));
 
   const filterControls = (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-3" role="group" aria-labelledby={destinationTypeHeadingId}>
-        <p
-          id={destinationTypeHeadingId}
-          className="text-caption text-muted font-medium tracking-wide uppercase"
-        >
-          Destination type
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {destinationTypeFilters.map((option) => (
-            <Tag
-              key={option.value}
-              selected={filters.destinationType === option.value}
-              onClick={() =>
-                setFilters((prev) => ({
-                  ...prev,
-                  destinationType: prev.destinationType === option.value ? null : option.value,
-                }))
-              }
-            >
-              {option.label}
-            </Tag>
-          ))}
-        </div>
-      </div>
-
+    <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:items-end md:gap-4">
       <Dropdown
         label="Departure month"
         options={monthOptions}
@@ -124,16 +94,23 @@ export function PackageListingView({ content, packages }: PackageListingViewProp
       />
 
       {filtersAreActive ? (
-        <TertiaryCTA type="button" onClick={clearFilters}>
-          Clear filters
-        </TertiaryCTA>
+        <div className="md:col-span-2">
+          <TertiaryCTA type="button" onClick={clearFilters}>
+            Clear filters
+          </TertiaryCTA>
+        </div>
       ) : null}
     </div>
   );
 
   return (
     <>
-      <Section tone="muted" spacing="compact" aria-labelledby="listing-hero-heading">
+      <Section
+        tone="muted"
+        spacing="compact"
+        className="py-6 md:py-8"
+        aria-labelledby="listing-hero-heading"
+      >
         <Container>
           <SectionHeading
             as="h1"
@@ -143,14 +120,17 @@ export function PackageListingView({ content, packages }: PackageListingViewProp
         </Container>
       </Section>
 
-      <Section tone="default" aria-label={`${content.title} packages`}>
-        <Container className="gap-section-gap flex flex-col">
+      <Section
+        tone="default"
+        spacing="compact"
+        className="pt-6 md:pt-8"
+        aria-label={`${content.title} packages`}
+      >
+        <Container className="flex flex-col gap-6 md:gap-7">
           {!categoryEmpty ? (
             <>
-              {/* Desktop / tablet filter row — Document 04 §4 */}
               <div className="hidden md:block">{filterControls}</div>
 
-              {/* Mobile filter trigger → bottom sheet */}
               <div className="md:hidden">
                 <button
                   ref={filterTriggerRef}
@@ -252,7 +232,7 @@ export function PackageListingView({ content, packages }: PackageListingViewProp
               {filterControls}
               <button
                 type="button"
-                className="bg-accent text-navy min-h-touch text-body mt-6 inline-flex w-full items-center justify-center rounded-sm px-5 font-medium focus-visible:shadow-[var(--sangam-focus-ring)] focus-visible:outline-none"
+                className="bg-accent text-navy min-h-touch text-body mt-5 inline-flex w-full items-center justify-center rounded-sm px-5 font-medium focus-visible:shadow-[var(--sangam-focus-ring)] focus-visible:outline-none"
                 onClick={closeSheet}
               >
                 Show results
